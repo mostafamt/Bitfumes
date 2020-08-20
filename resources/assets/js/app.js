@@ -12,14 +12,16 @@ window.Vue = require('vue');
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import router from './Router/router';
+import VueSimplemde from 'vue-simplemde';
+import md from 'marked';
 
-
-
+Vue.use(VueSimplemde)
 Vue.use(Vuetify)
 
 
 import User from './Helpers/User';
 window.User = User;
+window.md = md;
 
 window.EventBus = new Vue();
 
