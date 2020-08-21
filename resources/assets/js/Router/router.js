@@ -8,6 +8,7 @@ import Forum from '../components/forum/Forum.vue';
 import Logout from '../components/login/logout.vue';
 import Read from '../components/forum/read.vue';
 import Create from '../components/forum/create.vue';
+import CreateCategory from '../components/category/CreateCategory.vue';
 
 const routes = [
     { path: '/login', component: Login },
@@ -16,6 +17,7 @@ const routes = [
     { path: '/forum', component: Forum, name:'forum' },
     { path: '/question/:slug', component: Read, name:'read' },
     { path: '/ask', component: Create },
+    { path: '/category', component: CreateCategory },
 ];
 
 const router = new VueRouter({
