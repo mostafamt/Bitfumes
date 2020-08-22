@@ -12,15 +12,19 @@
         </div>
       </div>
     </v-card-title>
-    <v-card-text>
-        {{question.body}}
-    </v-card-text>
+    <v-card-text v-html="parsed_question"></v-card-text>
   </v-card>
 </template>
 
 <script>
+import md from 'marked';
 export default {
     props:['question'],
+    computed: {
+      parsed_question(){
+        return md.parse(this.question.body);
+      }
+    }
 }
 </script>
 

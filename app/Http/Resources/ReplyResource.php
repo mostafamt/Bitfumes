@@ -15,10 +15,12 @@ class ReplyResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'reply' => $this->body,
-            // 'reply' => $this->reply,
             'user' => $this->user->name,
-            'created_at' => $this->created_at->diffForHumans()
+            'user_id' => $this->user_id,
+            'created_at' => $this->created_at->diffForHumans(),
+            'question_slug' => $this->question->slug,
         ];
     }
 }
