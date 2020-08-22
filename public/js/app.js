@@ -99926,6 +99926,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_marked__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editReply_vue__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__editReply_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__editReply_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__likes_like_vue__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__likes_like_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__likes_like_vue__);
 //
 //
 //
@@ -99955,6 +99957,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -99967,7 +99973,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     components: {
-        EditReply: __WEBPACK_IMPORTED_MODULE_1__editReply_vue___default.a
+        EditReply: __WEBPACK_IMPORTED_MODULE_1__editReply_vue___default.a, Like: __WEBPACK_IMPORTED_MODULE_2__likes_like_vue___default.a
     },
     computed: {
         own: function own() {
@@ -100017,15 +100023,23 @@ var render = function() {
       _c(
         "v-card",
         [
-          _c("v-card-title", [
-            _c("div", { staticClass: "headline" }, [
-              _vm._v(_vm._s(_vm.reply.user) + " ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "ml-2" }, [
-              _vm._v(" said " + _vm._s(_vm.reply.created_at))
-            ])
-          ]),
+          _c(
+            "v-card-title",
+            [
+              _c("div", { staticClass: "headline" }, [
+                _vm._v(_vm._s(_vm.reply.user) + " ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "ml-2" }, [
+                _vm._v(" said " + _vm._s(_vm.reply.created_at))
+              ]),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c("like", { attrs: { reply: _vm.reply } })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("v-divider"),
           _vm._v(" "),
@@ -100447,6 +100461,151 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-3b0e63d4", module.exports)
+  }
+}
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(153)
+/* template */
+var __vue_template__ = __webpack_require__(154)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/likes/like.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-60f91e61", Component.options)
+  } else {
+    hotAPI.reload("data-v-60f91e61", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Helpers_User_js__ = __webpack_require__(22);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            liked: this.reply.liked,
+            likes_count: this.reply.like_count
+        };
+    },
+
+    props: ['reply'],
+    computed: {
+        iconName: function iconName() {
+            return this.liked ? "favorite" : "favorite_border";
+        }
+    },
+    methods: {
+        likeIt: function likeIt() {
+            if (__WEBPACK_IMPORTED_MODULE_0__Helpers_User_js__["a" /* default */].loggedIn()) {
+                this.liked ? this.dec() : this.inc();
+                this.liked = !this.liked;
+            }
+        },
+        inc: function inc() {
+            var _this = this;
+
+            axios.post('/api/like/' + this.reply.id).then(function (res) {
+                return _this.likes_count++;
+            });
+        },
+        dec: function dec() {
+            var _this2 = this;
+
+            axios.delete('/api/like/' + this.reply.id).then(function (res) {
+                return _this2.likes_count--;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-btn",
+        { attrs: { icon: "" }, on: { click: _vm.likeIt } },
+        [
+          _c("v-icon", { attrs: { color: "red" } }, [
+            _vm._v(_vm._s(_vm.iconName))
+          ]),
+          _vm._v(" " + _vm._s(_vm.likes_count) + "\n        ")
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-60f91e61", module.exports)
   }
 }
 

@@ -23,14 +23,14 @@ class LikeController extends Controller
     {
         $reply->like()->create([
             // 'user_id' => auth()->id,
-            'user_id' => '1'
+            'user_id' => auth()->id(),
         ]);
         return Response('likeIt', Response::HTTP_CREATED);
     }
 
     public function unLikeIt(Reply $reply)
     {
-        $reply->like()->where('user_id', '1')->first()->delete();
+        $reply->like()->where('user_id', auth()->id())->first()->delete();
         return Response(null, Response::HTTP_NO_CONTENT);
     }
 }

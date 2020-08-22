@@ -4,6 +4,8 @@
             <v-card-title>
                 <div class="headline">{{reply.user}} </div>
                 <div class="ml-2"> said {{reply.created_at}}</div>
+                <v-spacer></v-spacer>
+                <like :reply="reply"></like>
             </v-card-title>
             <v-divider></v-divider>
 
@@ -30,6 +32,8 @@
 <script>
 import md from 'marked';
 import EditReply from './editReply.vue';
+import Like from '../likes/like.vue';
+
 export default {
     props: ['reply', 'questionSlug', 'index'],
     data(){
@@ -38,7 +42,7 @@ export default {
         }
     },
     components: {
-        EditReply,
+        EditReply, Like,
     },
     computed: {
         own(){
