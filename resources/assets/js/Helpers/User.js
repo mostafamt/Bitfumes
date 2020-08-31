@@ -44,7 +44,9 @@ class User {
     id(){
         if(this.loggedIn){
             const payload = Token.payload(AppStorage.getToken());
-            return payload.sub;
+            if(payload){
+                return payload.sub;
+            }
         }
     }
 
