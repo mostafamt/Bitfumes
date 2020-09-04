@@ -7,6 +7,7 @@
 
 <script>
 import Reply from './reply.vue';
+import User from '../../Helpers/User';
 export default {
     props: ['replies', 'questionSlug'],
     data(){
@@ -28,6 +29,21 @@ export default {
 
             EventBus.$on('deleteReply', (idx) => {
                 this.content.splice(idx,1);
+            });
+
+            Echo.private('App.User.' + User.id())
+                .notification((notification) => {
+                    this.content.unshift(notification.reply);
+                });
+
+            Echo.channel('deleteReplyChannel')
+            .listen('DeleteReplyEvent', (e) => {
+                console.log(e);
+                for(let index = 0 ; index < this.content.length; index++){
+                    if(this.content[index].id == e.id){
+                        this.content.splice(index, 1);
+                    }
+                }
             });
         }
     }

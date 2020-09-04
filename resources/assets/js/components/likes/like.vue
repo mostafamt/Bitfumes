@@ -23,6 +23,14 @@ export default {
         }
     },
     props: ['reply'],
+    created(){
+        Echo.channel('likeChannel')
+        .listen('LikeEvent', (e) => {
+            if(this.reply.id == e.id){
+                e.type == 1 ? this.likes_count++ : this.likes_count--;
+            }
+        });
+    },
     computed: {
         iconName(){
             return this.liked ? "favorite" : "favorite_border";
