@@ -15,13 +15,18 @@ import router from './Router/router';
 import VueSimplemde from 'vue-simplemde';
 import md from 'marked';
 
+window.md = md;
+
 Vue.use(VueSimplemde)
 Vue.use(Vuetify)
 
 
 import User from './Helpers/User';
 window.User = User;
-window.md = md;
+
+import Exception from './Helpers/Exception';
+window.Exception = Exception;
+
 
 window.EventBus = new Vue();
 

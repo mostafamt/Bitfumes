@@ -42,6 +42,7 @@ export default {
         submit(){
             axios.post(`/api/question/${this.questionSlug}/reply`,{body:this.body})
             .then(res => {
+                this.body = '';
                 EventBus.$emit('newReply',res.data.reply)
                 window.scrollTo(0,0)
             });
