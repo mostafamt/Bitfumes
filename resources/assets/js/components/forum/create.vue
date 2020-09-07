@@ -19,7 +19,9 @@
 
             <vue-simplemde v-model="form.body" />
 
-            <v-btn color="green" type="submit">Create</v-btn>
+            <v-btn color="green" type="submit"
+            :disabled="disabled"
+            >Create</v-btn>
 
         </v-form>
     </v-container>
@@ -48,6 +50,11 @@ export default {
     created(){
         axios.get('/api/category')
         .then(res => this.categories = res.data.data)
+    },
+    computed: {
+        disabled(){
+            return !(this.form.title && this.form.body && this.form.category_id);
+        }
     },
     methods: {
         create(){
