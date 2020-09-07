@@ -1,4 +1,6 @@
-# This is a real time single page forum app.
+# Bitfumes
+<b>Description: </b>Bitfumes is a real time single page forum app. It uses Laravel in backend and Vue js in frontend . so powerful .<br>
+It's implemented from [**Real Time Single Page Forum App with Pusher Laravel & vuejs**](https://www.udemy.com/course/real-time-single-page-forum-app-with-pusher-laravel-vuejs/)
 
 ## We are going to use Pusher, Laravel, Vuejs, Vuetify, JWT and Markdown
 
