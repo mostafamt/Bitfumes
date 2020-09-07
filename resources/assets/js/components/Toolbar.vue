@@ -2,6 +2,10 @@
   <v-toolbar color="indigo" dark>
     <v-toolbar-title>
       <router-link class="white--text" style="text-decoration: none;" to="/">Bitfumes</router-link>
+      <!-- <router-link to="/">
+        <v-img src="require('@./file.png')"></v-img>
+      </router-link> -->
+      
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
